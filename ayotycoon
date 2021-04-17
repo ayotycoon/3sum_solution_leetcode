@@ -1,0 +1,65 @@
+class Solution {
+    /*
+Input: nums = [-1,0,1,2,-1,-4]
+Output: [[-1,-1,2],[-1,0,1]]
+    */
+    
+        public List<List<Integer>> solve(int[] nums,int result, int count, int start, HashMap<Integer,List<List<Integer>>> memo) {
+            
+            if(memo.containsKey(result)){
+                return memo.get(result);
+            }
+            
+            if(count == 0){
+                if(result == 0){
+                    
+                    List<List<Integer>> main = new ArrayList<>();
+                    main.add(new ArrayList<Integer>());
+                    
+                    return main;
+                }else {
+                    return null;
+                }
+                
+            }
+            
+            List<List<Integer>> ans = new ArrayList<>();
+            
+            for(int i =start; i < nums.length; i++){
+                
+                int curr = nums[i];
+                
+                
+                List<List<Integer>> temp = solve(nums,result + curr, count -1, i+1, memo);
+                
+              
+                
+                final int x = i;
+                if(temp != null){
+                    temp = temp.stream().map((List<Integer> a)-> {
+                        a.add(curr);
+                        return a;
+                        
+                    }).collect(Collectors.toList());
+                    
+                    ans.addAll(temp);
+                }
+                
+                       memo.put(curr, ans);   
+            }
+        
+            
+            
+            return ans;
+            
+        
+    }
+    
+    public List<List<Integer>> threeSum(int[] nums) {
+        
+         List<List<Integer>> ans = solve(nums,0, 3, 0, new HashMap<Integer,List<List<Integer>>>());
+        
+        return ans;
+        
+    }
+}
