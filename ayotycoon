@@ -43,9 +43,10 @@ Output: [[-1,-1,2],[-1,0,1]]
                     }).collect(Collectors.toList());
                     
                     ans.addAll(temp);
+                          // memo.put(curr, ans);   
                 }
                 
-                       memo.put(curr, ans);   
+                
             }
         
             
